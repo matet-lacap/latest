@@ -1,0 +1,446 @@
+
+
+Started GET "/admin/" for 127.0.0.1 at 2011-10-21 16:06:37 +0800
+  Processing by RailsAdmin::MainController#dashboard as HTML
+Completed   in 1ms
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2011-10-21 16:06:38 +0800
+  Processing by Devise::SessionsController#new as HTML
+PGError: ERROR:  relation "users" does not exist
+LINE 4:              WHERE a.attrelid = '"users"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod), d.adsrc, a.attnotnull
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"users"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+Completed 500 Internal Server Error in 398ms
+
+ActiveRecord::StatementInvalid (PGError: ERROR:  relation "users" does not exist
+LINE 4:              WHERE a.attrelid = '"users"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod), d.adsrc, a.attnotnull
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"users"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+):
+  
+
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.8ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.1ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (6.0ms)
+  [1m[36m (328.8ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (0.6ms)[0m  SHOW search_path
+  [1m[36m (67.1ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN ('"$user"','public') )
+ ORDER BY i.relname
+[0m
+  [1m[35m (49.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.8ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to DeviseCreateUsers (20111021080609)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (140.5ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) DEFAULT '' NOT NULL, "encrypted_password" character varying(128) DEFAULT '' NOT NULL, "reset_password_token" character varying(255), "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying(255), "last_sign_in_ip" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.2ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN ('"$user"','public') )
+ ORDER BY i.relname
+  [1m[36m (13.5ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.5ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN ('"$user"','public') )
+ ORDER BY i.relname
+  [1m[36mColumns for index index_users_on_email on users (0.6ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24636
+ AND a.attnum IN (2)
+[0m
+  [1m[35m (6.3ms)[0m  CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")
+  [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111021080609')[0m
+  [1m[35m (103.4ms)[0m  COMMIT
+Migrating to CreateRailsAdminHistoriesTable (20111021080611)
+  [1m[36m (1.6ms)[0m  [1mBEGIN[0m
+  [1m[35m (102.1ms)[0m  CREATE TABLE "rails_admin_histories" ("id" serial primary key, "message" text, "username" character varying(255), "item" integer, "table" character varying(255), "month" smallint, "year" bigint, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.6ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'rails_admin_histories'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN ('"$user"','public') )
+ ORDER BY i.relname
+[0m
+  [1m[35m (7.9ms)[0m  CREATE INDEX "index_rails_admin_histories" ON "rails_admin_histories" ("item", "table", "month", "year")
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111021080611')[0m
+  [1m[35m (7.4ms)[0m  COMMIT
+  [1m[36m (0.6ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.3ms)[0m  SHOW search_path
+  [1m[36m (3.1ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'rails_admin_histories'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN ('"$user"','public') )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_rails_admin_histories on rails_admin_histories (0.6ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24652
+ AND a.attnum IN (4,5,6,7)
+  [1m[36m (1.7ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'users'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN ('"$user"','public') )
+ ORDER BY i.relname
+[0m
+  [1m[35mColumns for index index_users_on_email on users (0.5ms)[0m   SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24636
+ AND a.attnum IN (2)
+  [1m[36mColumns for index index_users_on_reset_password_token on users (0.4ms)[0m  [1m SELECT a.attnum, a.attname
+ FROM pg_attribute a
+ WHERE a.attrelid = 24636
+ AND a.attnum IN (4)
+[0m
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2011-10-21 16:11:45 +0800
+  Processing by Devise::SessionsController#new as HTML
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/devise-1.4.9/app/views/devise/shared/_links.erb (1.8ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/devise-1.4.9/app/views/devise/sessions/new.html.erb within layouts/application (21.4ms)
+Compiled application.css  (1ms)  (pid 10373)
+Compiled application.js  (19ms)  (pid 10373)
+Compiled jquery.js  (37ms)  (pid 10373)
+Compiled jquery_ujs.js  (0ms)  (pid 10373)
+Completed 200 OK in 369ms (Views: 245.5ms | ActiveRecord: 16.1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2011-10-21 16:11:46 +0800
+Served asset /application.css - 200 OK (20ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2011-10-21 16:11:46 +0800
+Served asset /jquery_ujs.js - 200 OK (23ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2011-10-21 16:11:46 +0800
+Served asset /application.js - 200 OK (36ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2011-10-21 16:11:46 +0800
+Served asset /jquery.js - 200 OK (16ms)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2011-10-21 16:11:49 +0800
+  Processing by Devise::RegistrationsController#new as HTML
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/devise-1.4.9/app/views/devise/shared/_links.erb (1.2ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/devise-1.4.9/app/views/devise/registrations/new.html.erb within layouts/application (58.8ms)
+Completed 200 OK in 97ms (Views: 69.6ms | ActiveRecord: 11.0ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2011-10-21 16:12:01 +0800
+  Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nOK7FdzN0GO3tmjN9rgrptaivBuGY3vliBCRxgSHYOo=", "user"=>{"email"=>"matet.sacro@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.3ms)[0m  SELECT 1 FROM "users" WHERE "users"."email" = 'matet.sacro@gmail.com' LIMIT 1
+  [1m[36mSQL (34.4ms)[0m  [1mINSERT INTO "users" ("created_at", "current_sign_in_at", "current_sign_in_ip", "email", "encrypted_password", "last_sign_in_at", "last_sign_in_ip", "remember_created_at", "reset_password_sent_at", "reset_password_token", "sign_in_count", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id"[0m  [["created_at", Fri, 21 Oct 2011 08:12:01 UTC +00:00], ["current_sign_in_at", nil], ["current_sign_in_ip", nil], ["email", "matet.sacro@gmail.com"], ["encrypted_password", "$2a$10$RUpUIDM2JfIYku1zMD2LGuyby9N6AwxqJvMXxxnrfCPLqwKfvo4fG"], ["last_sign_in_at", nil], ["last_sign_in_ip", nil], ["remember_created_at", nil], ["reset_password_sent_at", nil], ["reset_password_token", nil], ["sign_in_count", 0], ["updated_at", Fri, 21 Oct 2011 08:12:01 UTC +00:00]]
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.0ms)[0m  UPDATE "users" SET "last_sign_in_at" = '2011-10-21 08:12:01.755987', "current_sign_in_at" = '2011-10-21 08:12:01.755987', "last_sign_in_ip" = '127.0.0.1', "current_sign_in_ip" = '127.0.0.1', "sign_in_count" = 1, "updated_at" = '2011-10-21 08:12:01.756816' WHERE "users"."id" = 1
+  [1m[36m (1.3ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/admin
+Completed 302 Found in 401ms
+
+
+Started GET "/admin" for 127.0.0.1 at 2011-10-21 16:12:01 +0800
+  Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mRailsAdmin::History Load (1.4ms)[0m  [1mselect count(*) as record_count, year, month from rails_admin_histories where month IN (6,7,8,9,10) and year = 2011 group by year, month[0m
+  [1m[35mRailsAdmin::History Load (0.7ms)[0m  SELECT "rails_admin_histories".* FROM "rails_admin_histories" WHERE (month = 10 and year = 2011)
+  [1m[36m (1.3ms)[0m  [1mSELECT COUNT(*) FROM "users" [0m
+  [1m[35mUser Load (1.1ms)[0m  SELECT "users".* FROM "users" ORDER BY updated_at desc LIMIT 1
+Rendered /home/rails/.bundler/ruby/1.9.1/rails_admin-c1d9613c65f3/app/views/rails_admin/main/_history.html.haml (2.6ms)
+Rendered /home/rails/.bundler/ruby/1.9.1/rails_admin-c1d9613c65f3/app/views/rails_admin/main/dashboard.html.haml within layouts/rails_admin/application (18.0ms)
+Compiled rails_admin/rails_admin.css  (7ms)  (pid 10373)
+WARNING:
+On line 3 of '/home/rails/.bundler/ruby/1.9.1/rails_admin-c1d9613c65f3/app/assets/stylesheets/rails_admin/imports.css.scss.erb'
+Comments will evaluate the contents of interpolations (#{ ... }) in Sass 3.2.
+Please escape the interpolation by adding a backslash before the `#`.
+Compiled rails_admin/imports.css  (4476ms)  (pid 10373)
+Compiled rails_admin/rails_admin.js  (110ms)  (pid 10373)
+Compiled rails_admin/jquery-ui-1.8.16.custom.js  (18ms)  (pid 10373)
+Compiled bootstrap.js  (12ms)  (pid 10373)
+Compiled bootstrap-modal.js  (1ms)  (pid 10373)
+Compiled bootstrap-dropdown.js  (0ms)  (pid 10373)
+Compiled bootstrap-scrollspy.js  (0ms)  (pid 10373)
+Compiled bootstrap-tabs.js  (0ms)  (pid 10373)
+Compiled bootstrap-twipsy.js  (2ms)  (pid 10373)
+Compiled bootstrap-popover.js  (0ms)  (pid 10373)
+Compiled bootstrap-alerts.js  (0ms)  (pid 10373)
+Compiled rails_admin/jquery.colorpicker.js  (1ms)  (pid 10373)
+Compiled rails_admin/jquery.ui.timepicker.js  (6ms)  (pid 10373)
+Compiled rails_admin/ra.datetimepicker.js  (0ms)  (pid 10373)
+Compiled rails_admin/ra.filter-box.js  (0ms)  (pid 10373)
+Compiled rails_admin/ra.filtering-multiselect.js  (0ms)  (pid 10373)
+Compiled rails_admin/ra.filtering-select.js  (4ms)  (pid 10373)
+Compiled rails_admin/ra.remote-form.js  (13ms)  (pid 10373)
+Compiled rails_admin/ra.timeline.js  (12ms)  (pid 10373)
+Compiled rails_admin/ui.js  (1210ms)  (pid 10373)
+Compiled rails_admin/themes/default/ui.js  (5ms)  (pid 10373)
+Compiled rails_admin/custom/ui.js  (18ms)  (pid 10373)
+Rendered /home/rails/.bundler/ruby/1.9.1/rails_admin-c1d9613c65f3/app/views/layouts/rails_admin/_secondary_navigation.html.haml (31.5ms)
+Rendered /home/rails/.bundler/ruby/1.9.1/rails_admin-c1d9613c65f3/app/views/layouts/rails_admin/_navigation.html.haml (9.0ms)
+Completed 200 OK in 6450ms (Views: 6279.4ms | ActiveRecord: 13.3ms)
+
+
+Started GET "/assets/rails_admin/ui.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:08 +0800
+Served asset /rails_admin/ui.js - 200 OK (5ms)
+
+
+Started GET "/assets/rails_admin/jquery-ui-1.8.16.custom.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:08 +0800
+Served asset /rails_admin/jquery-ui-1.8.16.custom.js - 200 OK (40ms)
+
+
+Started GET "/assets/rails_admin/themes/default/ui.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/themes/default/ui.js - 200 OK (27ms)
+
+
+Started GET "/assets/rails_admin/custom/ui.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/custom/ui.js - 200 OK (4ms)
+
+
+Started GET "/assets/rails_admin/jquery.ui.timepicker.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/jquery.ui.timepicker.js - 200 OK (17ms)
+
+
+Started GET "/assets/bootstrap-tabs.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /bootstrap-tabs.js - 200 OK (5ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /bootstrap-scrollspy.js - 200 OK (13ms)
+
+
+Started GET "/assets/rails_admin/imports.css?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/imports.css - 200 OK (34ms)
+
+
+Started GET "/assets/rails_admin/ra.filtering-select.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/ra.filtering-select.js - 200 OK (34ms)
+
+
+Started GET "/assets/rails_admin/ra.timeline.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/ra.timeline.js - 200 OK (10ms)
+
+
+Started GET "/assets/rails_admin/rails_admin.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/rails_admin.js - 200 OK (21ms)
+
+
+Started GET "/assets/rails_admin/rails_admin.css?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/rails_admin.css - 200 OK (29ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /bootstrap-popover.js - 200 OK (5ms)
+
+
+Started GET "/assets/rails_admin/ra.filter-box.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/ra.filter-box.js - 200 OK (4ms)
+
+
+Started GET "/assets/rails_admin/ra.remote-form.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/ra.remote-form.js - 200 OK (4ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /bootstrap-dropdown.js - 200 OK (4ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /bootstrap-modal.js - 200 OK (8ms)
+
+
+Started GET "/assets/rails_admin/jquery.colorpicker.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/jquery.colorpicker.js - 200 OK (11ms)
+
+
+Started GET "/assets/bootstrap-twipsy.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /bootstrap-twipsy.js - 200 OK (14ms)
+
+
+Started GET "/assets/bootstrap-alerts.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /bootstrap-alerts.js - 200 OK (10ms)
+
+
+Started GET "/assets/rails_admin/ra.datetimepicker.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /rails_admin/ra.datetimepicker.js - 200 OK (3ms)
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:09 +0800
+Served asset /bootstrap.js - 200 OK (244ms)
+
+
+Started GET "/assets/rails_admin/ra.filtering-multiselect.js?body=1" for 127.0.0.1 at 2011-10-21 16:12:10 +0800
+Served asset /rails_admin/ra.filtering-multiselect.js - 200 OK (17ms)
+
+
+Started GET "/admin/history/slider?from%5Bmonth%5D=6&from%5Byear%5D=2011&to%5Bmonth%5D=10&to%5Byear%5D=2011" for 127.0.0.1 at 2011-10-21 16:12:10 +0800
+  Processing by RailsAdmin::HistoryController#slider as JSON
+  Parameters: {"from"=>{"month"=>"6", "year"=>"2011"}, "to"=>{"month"=>"10", "year"=>"2011"}}
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35mRailsAdmin::History Load (0.9ms)[0m  select count(*) as record_count, year, month from rails_admin_histories where month IN (7,8,9,10) and year = 2011 group by year, month
+Completed 200 OK in 66ms (Views: 4.3ms | ActiveRecord: 8.5ms)
+
+
+Started GET "/assets/rails_admin/timeline/arrow_right.png" for 127.0.0.1 at 2011-10-21 16:12:10 +0800
+Served asset /rails_admin/timeline/arrow_right.png - 304 Not Modified (10ms)
+
+
+Started GET "/assets/rails_admin/timeline/handler.png" for 127.0.0.1 at 2011-10-21 16:12:10 +0800
+Served asset /rails_admin/timeline/handler.png - 304 Not Modified (44ms)
+
+
+Started GET "/assets/rails_admin/timeline/arrow_left.png" for 127.0.0.1 at 2011-10-21 16:12:10 +0800
+Served asset /rails_admin/timeline/arrow_left.png - 304 Not Modified (27ms)
+
+
+Started DELETE "/users/sign_out" for 127.0.0.1 at 2011-10-21 16:12:13 +0800
+  Processing by Devise::SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"nOK7FdzN0GO3tmjN9rgrptaivBuGY3vliBCRxgSHYOo="}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Completed 500 Internal Server Error in 203ms
+
+NameError (undefined local variable or method `root_path' for #<Devise::SessionsController:0x9ff4c8c>):
+  
+
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.5ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (5.1ms)
+
+
+Started GET "/admin/" for 127.0.0.1 at 2011-10-21 17:00:48 +0800
+  Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[36mUser Load (1.5ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1[0m
+Completed   in 273ms
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2011-10-21 17:00:48 +0800
+  Processing by Devise::SessionsController#new as HTML
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/devise-1.4.9/app/views/devise/shared/_links.erb (2.4ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/devise-1.4.9/app/views/devise/sessions/new.html.erb within layouts/application (25.8ms)
+Completed 200 OK in 218ms (Views: 186.2ms | ActiveRecord: 4.2ms)
+
+
+Started GET "/assets/all.css" for 127.0.0.1 at 2011-10-21 17:00:49 +0800
+Served asset /all.css - 404 Not Found (14ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets/all.css"):
+  
+
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.1ms)
+
+
+Started GET "/assets/defaults.js" for 127.0.0.1 at 2011-10-21 17:00:49 +0800
+Served asset /defaults.js - 404 Not Found (12ms)
+
+ActionController::RoutingError (No route matches [GET] "/assets/defaults.js"):
+  
+
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.7ms)
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2011-10-21 17:00:56 +0800
+  Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nOK7FdzN0GO3tmjN9rgrptaivBuGY3vliBCRxgSHYOo=", "user"=>{"email"=>"matet.sacro@gmail.com", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Sign in"}
+  [1m[35mUser Load (9.9ms)[0m  SELECT "users".* FROM "users" WHERE "users"."email" = 'matet.sacro@gmail.com' LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.7ms)[0m  UPDATE "users" SET "current_sign_in_at" = '2011-10-21 09:00:56.244235', "sign_in_count" = 2, "updated_at" = '2011-10-21 09:00:56.245439' WHERE "users"."id" = 1
+  [1m[36m (22.7ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/admin
+Completed 302 Found in 412ms
+
+
+Started GET "/admin" for 127.0.0.1 at 2011-10-21 17:00:56 +0800
+  Processing by RailsAdmin::MainController#dashboard as HTML
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1
+  [1m[36mRailsAdmin::History Load (1.6ms)[0m  [1mselect count(*) as record_count, year, month from rails_admin_histories where month IN (6,7,8,9,10) and year = 2011 group by year, month[0m
+  [1m[35mRailsAdmin::History Load (0.6ms)[0m  SELECT "rails_admin_histories".* FROM "rails_admin_histories" WHERE (month = 10 and year = 2011)
+DEPRECATION WARNING: 'Catalog.rails_admin { }' is deprecated, content is not evaluated anymore, use initializer instead. (called from <class:Catalog> at /home/rails/Documents/mobile_admin/app/models/catalog.rb:38)
+DEPRECATION WARNING: 'CustomerGroup.rails_admin { }' is deprecated, content is not evaluated anymore, use initializer instead. (called from <class:CustomerGroup> at /home/rails/Documents/mobile_admin/app/models/customer_group.rb:23)
+DEPRECATION WARNING: 'Location.rails_admin { }' is deprecated, content is not evaluated anymore, use initializer instead. (called from <class:Location> at /home/rails/Documents/mobile_admin/app/models/location.rb:35)
+DEPRECATION WARNING: 'OpeningHour.rails_admin { }' is deprecated, content is not evaluated anymore, use initializer instead. (called from <class:OpeningHour> at /home/rails/Documents/mobile_admin/app/models/opening_hour.rb:21)
+[paperclip] Duplicate URL for image with /system/:attachment/:id/:style/:filename. This will clash with attachment defined in Catalog class
+DEPRECATION WARNING: 'Product.rails_admin { }' is deprecated, content is not evaluated anymore, use initializer instead. (called from <class:Product> at /home/rails/Documents/mobile_admin/app/models/product.rb:44)
+DEPRECATION WARNING: 'Vendor.rails_admin { }' is deprecated, content is not evaluated anymore, use initializer instead. (called from <class:Vendor> at /home/rails/Documents/mobile_admin/app/models/vendor.rb:46)
+PGError: ERROR:  relation "add_ons" does not exist
+LINE 4:              WHERE a.attrelid = '"add_ons"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod), d.adsrc, a.attnotnull
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"add_ons"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+Completed 500 Internal Server Error in 750ms
+
+ActiveRecord::StatementInvalid (PGError: ERROR:  relation "add_ons" does not exist
+LINE 4:              WHERE a.attrelid = '"add_ons"'::regclass
+                                        ^
+:             SELECT a.attname, format_type(a.atttypid, a.atttypmod), d.adsrc, a.attnotnull
+              FROM pg_attribute a LEFT JOIN pg_attrdef d
+                ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+             WHERE a.attrelid = '"add_ons"'::regclass
+               AND a.attnum > 0 AND NOT a.attisdropped
+             ORDER BY a.attnum
+):
+  
+
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.2ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.5ms)
+Rendered /usr/local/lib/ruby/gems/1.9.1/gems/actionpack-3.1.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (8.3ms)
+DEPRECATION WARNING: 'Product.rails_admin { }' is deprecated, content is not evaluated anymore, use initializer instead. (called from <class:Product> at /home/rails/Documents/mobile_admin/app/models/product.rb:44)
+DEPRECATION WARNING: 'Product.rails_admin { }' is deprecated, content is not evaluated anymore, use initializer instead. (called from <class:Product> at /home/rails/Documents/mobile_admin/app/models/product.rb:44)
+PGError: ERROR:  relation "add_ons_products" does not exist
+:           SELECT DISTINCT(attr.attname)
+          FROM pg_attribute attr
+          INNER JOIN pg_depend dep ON attr.attrelid = dep.refobjid AND attr.attnum = dep.refobjsubid
+          INNER JOIN pg_constraint cons ON attr.attrelid = cons.conrelid AND attr.attnum = cons.conkey[1]
+          WHERE cons.contype = 'p'
+            AND dep.refobjid = $1::regclass
+PGError: ERROR:  relation "add_ons_products" does not exist
+:           SELECT DISTINCT(attr.attname)
+          FROM pg_attribute attr
+          INNER JOIN pg_depend dep ON attr.attrelid = dep.refobjid AND attr.attnum = dep.refobjsubid
+          INNER JOIN pg_constraint cons ON attr.attrelid = cons.conrelid AND attr.attnum = cons.conkey[1]
+          WHERE cons.contype = 'p'
+            AND dep.refobjid = $1::regclass
+DEPRECATION WARNING: 'Product.rails_admin { }' is deprecated, content is not evaluated anymore, use initializer instead. (called from <class:Product> at /home/rails/Documents/mobile_admin/app/models/product.rb:47)
